@@ -7,13 +7,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/schedule-job/schedule-job-database/core"
 	"github.com/schedule-job/schedule-job-gateway/internal"
 )
-
-type Batch struct {
-	DB core.Database
-}
 
 func (b *Batch) getBatchUrls() []string {
 	urls, error := b.DB.SelectBatchUrls()

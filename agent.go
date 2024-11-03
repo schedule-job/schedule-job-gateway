@@ -6,13 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/schedule-job/schedule-job-database/core"
 	"github.com/schedule-job/schedule-job-gateway/internal"
 )
-
-type Agent struct {
-	DB core.Database
-}
 
 func (a *Agent) getAgentUrls() []string {
 	urls, error := a.DB.SelectAgentUrls()

@@ -2,31 +2,7 @@ package gateway
 
 import (
 	"log"
-
-	"github.com/schedule-job/schedule-job-database/core"
 )
-
-type Job struct {
-	DB core.Database
-}
-
-type Info struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Author      string   `json:"author"`
-	Members     []string `json:"members"`
-}
-
-type Item struct {
-	Name    string                 `json:"name"`
-	Payload map[string]interface{} `json:"payload"`
-}
-
-type InsertItem struct {
-	Info    Info `json:"info"`
-	Action  Item `json:"action"`
-	Trigger Item `json:"trigger"`
-}
 
 func (j *Job) InsertJob(item InsertItem) (string, error) {
 	id, err := j.DB.InsertJob(item.Info.Name, item.Info.Description, item.Info.Author, item.Info.Members)
