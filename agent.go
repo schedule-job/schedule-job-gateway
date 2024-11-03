@@ -2,7 +2,6 @@ package gateway
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
@@ -31,7 +30,6 @@ func (a *Agent) GetLogs(jobId, lastId string, limit int) ([]byte, error) {
 	resp, err := internal.Get(path, a.getAgentUrls())
 
 	if err != nil {
-		log.Fatalln(err.Error())
 		return nil, err
 	}
 
@@ -44,7 +42,6 @@ func (a *Agent) GetLog(jobId, id string) ([]byte, error) {
 	resp, err := internal.Get(path, a.getAgentUrls())
 
 	if err != nil {
-		log.Fatalln(err.Error())
 		return nil, err
 	}
 

@@ -1,14 +1,9 @@
 package gateway
 
-import (
-	"log"
-)
-
 func (j *Job) InsertJob(item Item) (string, error) {
 	id, err := j.DB.InsertJob(item.Info.Name, item.Info.Description, item.Info.Author, item.Info.Members)
 
 	if err != nil {
-		log.Fatalln(err.Error())
 		return "", err
 	}
 
@@ -16,7 +11,6 @@ func (j *Job) InsertJob(item Item) (string, error) {
 
 	if errAction != nil {
 		j.DB.DeleteJob(id)
-		log.Fatalln(errAction.Error())
 		return "", errAction
 	}
 
@@ -25,7 +19,6 @@ func (j *Job) InsertJob(item Item) (string, error) {
 	if errTrigger != nil {
 		j.DB.DeleteAction(id)
 		j.DB.DeleteJob(id)
-		log.Fatalln(errTrigger.Error())
 		return "", errTrigger
 	}
 

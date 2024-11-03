@@ -7,6 +7,7 @@ import (
 	"log"
 	"time"
 
+	schedule_errors "github.com/schedule-job/schedule-job-errors"
 	"github.com/schedule-job/schedule-job-gateway/internal"
 )
 
@@ -23,21 +24,20 @@ func (b *Batch) GetPreNextSchedule(name string, payload map[string]interface{}) 
 	body, errMarshal := json.Marshal(payload)
 
 	if errMarshal != nil {
-		log.Fatalln(errMarshal.Error())
-		return nil, errMarshal
+		err := schedule_errors.InvalidArgumentError{Param: "payload", Message: errMarshal.Error()}
+		log.Fatalln(err.Error())
+		return nil, &err
 	}
 
 	data, errReq := internal.Post(path, bytes.NewBuffer(body), b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return nil, errReq
 	}
 
 	time, errTime := internal.ToTime(data)
 
 	if errTime != nil {
-		log.Fatalln(errTime.Error())
 		return nil, errTime
 	}
 
@@ -50,14 +50,12 @@ func (b *Batch) GetNextSchedule(id string) (*time.Time, error) {
 	data, errReq := internal.Post(path, nil, b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return nil, errReq
 	}
 
 	time, errTime := internal.ToTime(data)
 
 	if errTime != nil {
-		log.Fatalln(errTime.Error())
 		return nil, errTime
 	}
 
@@ -69,21 +67,20 @@ func (b *Batch) GetPreNextInfo(name string, payload map[string]interface{}) (int
 	body, errMarshal := json.Marshal(payload)
 
 	if errMarshal != nil {
-		log.Fatalln(errMarshal.Error())
-		return nil, errMarshal
+		err := schedule_errors.InvalidArgumentError{Param: "payload", Message: errMarshal.Error()}
+		log.Fatalln(err.Error())
+		return nil, &err
 	}
 
 	data, errReq := internal.Post(path, bytes.NewBuffer(body), b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return nil, errReq
 	}
 
 	json, errJson := internal.ToJson(data)
 
 	if errJson != nil {
-		log.Fatalln(errJson.Error())
 		return nil, errJson
 	}
 
@@ -96,14 +93,12 @@ func (b *Batch) GetNextInfo(id string) (interface{}, error) {
 	data, errReq := internal.Post(path, nil, b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return nil, errReq
 	}
 
 	json, errJson := internal.ToJson(data)
 
 	if errJson != nil {
-		log.Fatalln(errJson.Error())
 		return nil, errJson
 	}
 
@@ -116,7 +111,6 @@ func (b *Batch) Progress() error {
 	_, errReq := internal.Post(path, nil, b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return errReq
 	}
 
@@ -129,7 +123,6 @@ func (b *Batch) ProgressOnce(id string) error {
 	_, errReq := internal.Post(path, nil, b.getBatchUrls())
 
 	if errReq != nil {
-		log.Fatalln(errReq.Error())
 		return errReq
 	}
 

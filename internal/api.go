@@ -2,11 +2,12 @@ package internal
 
 import (
 	"context"
-	"errors"
 	"io"
 	"log"
 	"net/http"
 	"time"
+
+	schedule_errors "github.com/schedule-job/schedule-job-errors"
 )
 
 var client = http.Client{
@@ -22,23 +23,26 @@ func Get(path string, urls []string) ([]byte, error) {
 			if errResp == context.DeadlineExceeded {
 				continue
 			}
-			log.Fatalln(errResp.Error())
-			return nil, errResp
+			err := schedule_errors.ConnectionError{Address: url, Reason: errResp.Error()}
+			log.Fatalln(err.Error())
+			return nil, &err
 		}
 
 		defer resp.Body.Close()
 
 		body, errRead := io.ReadAll(resp.Body)
 		if errRead != nil {
-			log.Fatalln(errRead.Error())
-			return nil, errRead
+			err := schedule_errors.ConnectionError{Address: url, Reason: errRead.Error()}
+			log.Fatalln(err.Error())
+			return nil, &err
 		}
 
 		return body, nil
 	}
 
-	log.Fatalln("no api")
-	return nil, errors.New("no api")
+	err := schedule_errors.InvalidArgumentError{Param: "urls", Message: "All servers are down."}
+	log.Fatalln(err)
+	return nil, &err
 }
 
 func Post(path string, body io.Reader, urls []string) ([]byte, error) {
@@ -50,21 +54,24 @@ func Post(path string, body io.Reader, urls []string) ([]byte, error) {
 			if errResp == context.DeadlineExceeded {
 				continue
 			}
-			log.Fatalln(errResp.Error())
-			return nil, errResp
+			err := schedule_errors.ConnectionError{Address: url, Reason: errResp.Error()}
+			log.Fatalln(err.Error())
+			return nil, &err
 		}
 
 		defer resp.Body.Close()
 
 		body, errRead := io.ReadAll(resp.Body)
 		if errRead != nil {
-			log.Fatalln(errRead.Error())
-			return nil, errRead
+			err := schedule_errors.ConnectionError{Address: url, Reason: errRead.Error()}
+			log.Fatalln(err.Error())
+			return nil, &err
 		}
 
 		return body, nil
 	}
 
-	log.Fatalln("no api")
-	return nil, errors.New("no api")
+	err := schedule_errors.InvalidArgumentError{Param: "urls", Message: "All servers are down."}
+	log.Fatalln(err)
+	return nil, &err
 }
