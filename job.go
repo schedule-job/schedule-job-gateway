@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-func (j *Job) InsertJob(item InsertItem) (string, error) {
+func (j *Job) InsertJob(item Item) (string, error) {
 	id, err := j.DB.InsertJob(item.Info.Name, item.Info.Description, item.Info.Author, item.Info.Members)
 
 	if err != nil {

@@ -14,20 +14,8 @@ type Job struct {
 	DB core.Database
 }
 
-type Info struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Author      string   `json:"author"`
-	Members     []string `json:"members"`
-}
-
 type Item struct {
-	Name    string                 `json:"name"`
-	Payload map[string]interface{} `json:"payload"`
-}
-
-type InsertItem struct {
-	Info    Info `json:"info"`
-	Action  Item `json:"action"`
-	Trigger Item `json:"trigger"`
+	Info    core.Job     `json:"info"`
+	Action  core.Action  `json:"action"`
+	Trigger core.Trigger `json:"trigger"`
 }
