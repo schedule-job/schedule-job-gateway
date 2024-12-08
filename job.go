@@ -7,7 +7,7 @@ func (j *Job) InsertJob(item Item) (string, error) {
 		return "", err
 	}
 
-	errAction := j.DB.InsertAction(id, item.Action.Name, item.Action.Payload)
+	errAction := j.DB.InsertAction(id, item.Action.Name, item.Action.Type, item.Action.Payload)
 
 	if errAction != nil {
 		j.DB.DeleteJob(id)
