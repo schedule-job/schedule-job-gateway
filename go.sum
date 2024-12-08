@@ -1,5 +1,3 @@
-github.com/schedule-job/schedule-job-database v1.0.0-alpha.8 h1:U9ORX001yX6JTKrjCBjjZeJu5RqaKETCCcZ3wN27A+w=
-github.com/schedule-job/schedule-job-database v1.0.0-alpha.8/go.mod h1:Vqln7geagW1IoB9i+ltxpkpl4KEmMYw/1WdjcDv4CQQ=
 github.com/schedule-job/schedule-job-database v1.0.0-alpha.12 h1:M59EYfR1xkcSkZZotZ9Oxu6qcwjjUX1GFkf2SZ73HPM=
 github.com/schedule-job/schedule-job-database v1.0.0-alpha.12/go.mod h1:ILKJ90HvjIJvCxX4Zeh1Z9dpAFBHk1zEiIuz7FhDL/w=
 github.com/schedule-job/schedule-job-errors v1.0.0-alpha.1 h1:iSWNl8DyWxusEpZEeaz+oLjN9pyZ3zyRxYkq4qERINg=
